@@ -1,0 +1,44 @@
+{% include 'include/head.html' %}
+
+    {% include 'include/nav.html' %}
+
+        <!-- 이벤트배너 -->
+        <div class="mb-4 p-1 rounded text-body-emphasis" style="background-color: rgb(212, 238, 212);">
+            <img src="{{ url_for('static', filename='img/event.png') }}" style="width:100%; height: auto;">
+        </div>
+        <!-- 소분류 + 상품 -->
+        {% for item in items %}
+        <div class="row mb-3 border-bottom">
+            <h3 class="mt-4 pb-4">
+                {{item[0].clss}}
+            </h3>
+            {% for data in item %}
+            <div class="col-6 col-md-4 col-lg-3 mb-4">
+                <a href="{{ url_for('detail') }}?code={{data.id}}" class="link-body-emphasis link-offset-2-hover link-underline-opacity-0">
+                    <div class="row g-0 border rounded overflow-hidden flex-md-row mb-1 shadow-sm position-relative" style="height: calc(width * 1)">
+                        <img src="{{ url_for('static', filename='img/{}.jpg'.format(data.id)) }}" style="width:100%; height:100%">
+                    </div>
+                    <div class="text-body-secondary">
+                        {{data.name}}
+                    </div>
+                </a>
+                <div class="text-body-emphasis fs-5">
+                    {{data.price}}원
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+
+        {% if url %}
+            <div class="row mb-2">
+                <h3 class="mt-4 pb-4 fst-italic ">
+                    추천 상품 히스토그램
+                </h3>
+                <div class="mb-4" style="width:70%">
+                    <img src="{{ url }}" class="img-fluid">
+                </div>
+            </div>
+        {% endif %}
+
+    {% include 'include/footer.html' %}

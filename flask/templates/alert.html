@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="auto">
+<head>
+    <meta charset="UTF-8">
+    <title>알림</title>
+</head>
+<body>
+    <script>
+        alert("{{ message }}");
+        
+        if("{{ redirect }}")
+        {
+            // 페이지 기록을 남기지 않고 전송
+            location.replace("{{ redirect }}");
+        } else
+        {
+            window.history.back();
+        }       
+    </script>
+</body>
+</html>

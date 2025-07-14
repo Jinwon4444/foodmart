@@ -1,0 +1,91 @@
+{% include 'include/head.html' %}
+
+    {% include 'include/nav.html' %}
+
+<!-- 제품명 검색 시 -->
+        <div class="row mb-2 mt-3 g-1 justify-content-between">
+            <div class="my-5 fs-2 text-center">
+                {{ name }} 검색 결과
+            </div>
+            <div class="d-none d-md-block col-md-3">
+                <div class="position-sticky" style="top: 2rem;">
+                    <div class="p-4 mb-3 rounded" style="background-color: rgb(212, 238, 212);">
+                        <h4 class="fst-italic">카테고리</h4>
+                        <div class="all">
+                            <a href="javascript:return false;" class="color1">검색된 분류({{ clss_len }})</a>
+                        </div>
+                        <ul>
+                            {% for data in clss %}
+                                {% if loop.index0 % 3 == 0 %}
+                                    <li class="cate">
+                                {% endif %}
+                                
+                                <a name="searchclass" href="#" onclick="searchClass(event, this)">{{ data }}</a>
+                                
+                                {% if loop.index % 3 == 0 or loop.last %}
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>                 
+            </div>
+            <div class="row col-md-9 px-0">
+                {% for data in items %}
+                <div class="col-6 col-lg-4 mb-4" name="search_list">
+                    <input type="hidden" name="clss" value="{{data.clss}}">
+                    <a href="{{ url_for('detail') }}?code={{data.id}}" class="link-body-emphasis link-offset-2-hover link-underline-opacity-0">
+                        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-1 shadow-sm position-relative" style="height: calc(width * 1)">
+                            <img src="{{ url_for('static', filename='img/{}.jpg'.format(data.id)) }}" style="width:100%; height:100%">
+                        </div>
+                        <div class="text-body-secondary">
+                            {{data.name}}
+                        </div>
+                    </a>
+                    <div class="text-body-emphasis fs-5">
+                        {{data.price}}원
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <script>
+            function searchClass(event, item)
+            {
+                // 이벤트의 기본 동작(링크 이동)을 막습니다.
+                event.preventDefault();
+
+                let search_class = item.textContent;
+                let a_list = document.querySelectorAll("a[name='searchclass']")
+                let search_list = document.querySelectorAll("div[name='search_list']")
+                a_list.forEach(itemA => {
+
+                    if (itemA.classList.contains('text-primary')) 
+                    {
+                        itemA.classList.remove('text-primary')
+                    }
+                })
+                item.classList.add('text-primary')
+
+                search_list.forEach(itemDiv => 
+                {
+                    let inputValue = itemDiv.querySelector('input').value;
+
+                    if (itemDiv.classList.contains('d-none')) 
+                    {
+                        itemDiv.classList.remove('d-none')
+                    }
+                    
+                    if (inputValue != search_class) 
+                    {
+                        itemDiv.classList.add('d-none');
+                    }
+                })
+            };
+        </script>
+
+{% include 'include/footer.html' %}
+
+
+

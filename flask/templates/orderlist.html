@@ -1,0 +1,40 @@
+{% include 'include/head.html' %}
+
+    {% include 'include/nav.html' %}
+    
+        <!-- 주문내역 -->
+        <div class="row mb-3">
+            <h3 class="mt-4 pb-4">
+                주문내역
+            </h3>
+
+            <div class="col-12 mb-4">
+                <table class="py-3 border-top border-bottom border-2 border-dark" style="width: 100%">
+                    <thead>
+                        <tr class="text-center fs-5">
+                            <th>주문상품</th>
+                            <th style="width: 15%;">주문날짜</th>
+                            <th style="width: 15%;">주문금액</th>
+                        </tr>
+                    </thead>
+                    {% if items %}
+                    <tbody class="fs-5">
+                        {% for data in items %}
+                        <tr class="border-top border-dark">
+                            <td>
+                                <a href="{{ url_for('orderDetail') }}?orderno={{ data.orderno }}" class="link-body-emphasis link-offset-2-hover link-underline-opacity-0">
+                                    <img src="{{ url_for('static', filename='img/{}.jpg'.format(data.productsid)) }}" class="img-fluid" style="width: 100px; height:100px">
+                                    <span class="mx-3">{{ data.productsname }} 등 {{ data.productscount }}개</span>
+                                </a>
+                            </td>
+                            <td class="text-center">{{ data.orderdate }}</td>
+                            <td class="text-end px-2"><span name="price" class="item-price">{{ data.totalprice }}</span>원</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    {% endif %}
+                </table>
+            </div>
+        </div>
+
+{% include 'include/footer.html' %}

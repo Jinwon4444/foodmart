@@ -1,0 +1,252 @@
+<!-- nav 부분 -->
+    <div class="container header-container">
+        <header class="border-bottom border-2 lh-1 py-4 ">
+            <div class="row flex-nowrap justify-content-between align-items-center px-1">
+                <div class="col-3 col-lg-2"> 
+                    <a class="blog-header-logo text-body-emphasis text-decoration-none" href="{{ url_for('home') }}">식자재마트</a> 
+                </div>
+                <div class="col-7 col-lg-8 text-center px-2 px-md-4 row align-items-center">
+                    <div class="col-10 p-0">
+                        <input type="text" class="form-control" id="pname" placeholder="상품 검색">    
+                    </div>
+                    <div class="col-2 p-0"> 
+                        <button type="button" class="btn btn-outline-secondary nav-font" onclick="btnProductSearch()">검색</button>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="d-flex justify-content-end px-0">
+                        <a href="{{ url_for('orderList') }}" class="link-body-emphasis link-offset-2-hover link-underline-opacity-0 link-underline-opacity-75-hover nav-font">주문내역</a>
+                        <span class="col-2"></span>
+                        <a href="{{ url_for('basket') }}" class="link-body-emphasis link-offset-2-hover link-underline-opacity-0 link-underline-opacity-75-hover nav-font">장바구니</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- 네비바 -->
+        <div class="nav-scroller py-2 mb-3 border-bottom border-success border-2 d-flex justify-content-center">
+            <div class="col-0 col-sm-1">
+                
+            </div>
+            <div class="col-10 col-sm-9 d-flex justify-content-center">
+                <div class="col-11">
+                    <nav class="nav justify-content-between g-3">
+                        <!-- 각 메뉴 항목에 data-menu 속성을 추가하여 JS에서 어떤 메뉴를 열지 식별하게 합니다. -->
+                        <a class="nav-item nav-font nav-link link-body-emphasis col-2 menu-trigger" data-menu="menu-vegetables">농산물</a>
+                        <a class="nav-item nav-font nav-link link-body-emphasis col-2 menu-trigger" data-menu="menu-meats">축산물</a>
+                        <a class="nav-item nav-font nav-link link-body-emphasis col-2 menu-trigger" data-menu="menu-seafood">수산물</a>
+                        <a class="nav-item nav-font nav-link link-body-emphasis col-2 menu-trigger" data-menu="menu-condiments">조미료</a>
+                    </nav>
+                </div>
+            </div>
+            {% if login %}
+                <div class="col-2 col-sm-2 d-flex justify-content-end">
+                    <div class="d-none d-lg-block py-2">{{login}}님 &nbsp;</div>
+                    <a class="link-body-emphasis link-offset-2-hover link-underline-opacity-0 link-underline-opacity-75-hover py-2" href="{{ url_for('logout') }}">로그아웃</a>
+                </div>
+            {% else %}
+                <div class="col-2 col-sm-2 d-flex justify-content-end">
+                    <a class="link-body-emphasis link-offset-2-hover link-underline-opacity-0 link-underline-opacity-75-hover py-2" href="{{ url_for('login') }}">로그인</a>
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- 3. 메가 메뉴 콘텐츠를 네비게이션 바 바로 아래에 추가합니다. -->
+        <div id="mega-menu-wrapper">
+            <!-- 야채 메뉴 콘텐츠 -->
+            <div id="menu-vegetables" class="mega-menu-content">
+                <div class="mega-menu-column col-3 px-2">
+                    <ul>
+                        <li><a href="{{ url_for('subclass') }}?clss=양파">양파</a></li>
+                        <li><a href="{{ url_for('subclass') }}?clss=마늘">마늘</a></li>
+                        <li><a href="{{ url_for('subclass') }}?clss=대파">대파</a></li>
+                        <li><a href="{{ url_for('subclass') }}?clss=청양고추">청양고추</a></li>
+                        <li><a href="{{ url_for('subclass') }}?clss=콩나물">콩나물</a></li>
+                        <li><a href="{{ url_for('subclass') }}?clss=오이">오이</a></li>
+                    </ul>
+                </div>
+                <div class="mega-menu-column col-3 px-2">
+                    <ul>
+                        <li><a href="{{ url_for('subclass') }}?clss=상추">상추</a></li>
+                        <li><a href="{{ url_for('subclass') }}?clss=배추">배추</a></li>
+                        <li><a href="{{ url_for('subclass') }}?clss=시금치">시금치</a></li>
+                        <li><a href="{{ url_for('subclass') }}?clss=깻잎">깻잎</a></li>
+                        <li><a href="{{ url_for('subclass') }}?clss=양배추">양배추</a></li>
+                        <li><a href="{{ url_for('subclass') }}?clss=호박">호박</a></li>
+                    </ul>
+                </div>
+                <div class="mega-menu-column col-3 px-2">
+                    <ul>
+                        <li><a href="{{ url_for('subclass') }}?clss=당근">당근</a></li>
+                        <li><a href="{{ url_for('subclass') }}?clss=감자">감자</a></li>
+                        <li><a href="{{ url_for('subclass') }}?clss=고구마">고구마</a></li>
+                        <li><a href="{{ url_for('subclass') }}?clss=팽이버섯">팽이버섯</a></li>
+                        <li><a href="{{ url_for('subclass') }}?clss=새송이버섯">새송이버섯</a></li>
+                        <li><a href="{{ url_for('subclass') }}?clss=표고버섯">표고버섯</a></li>
+                    </ul>
+                </div>
+                 <div class="mega-menu-column col-3 px-2">
+                    <ul>
+
+                        <li><a href="{{ url_for('subclass') }}?clss=두부">두부</a></li>
+                        <li><a href="{{ url_for('subclass') }}?clss=곤약">곤약</a></li>
+                        <li><a href="{{ url_for('subclass') }}?clss=쌀">쌀</a></li>
+                        <li><a href="{{ url_for('subclass') }}?clss=잡곡">잡곡</a></li>
+                        <li><a href="{{ url_for('subclass') }}?clss=레몬">레몬</a></li>
+                        <li><a href="{{ url_for('subclass') }}?clss=사과">사과</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 축산 메뉴 콘텐츠 -->
+            <div id="menu-meats" class="mega-menu-content">
+                <div class="mega-menu-column col-4 px-1">
+                    <ul>
+                        <li><a href="{{ url_for('subclass') }}?clss=삼겹살">삼겹살</a></li>
+                        <li><a href="{{ url_for('subclass') }}?clss=햄">햄</a></li>
+                    </ul>
+                </div>
+                <div class="mega-menu-column col-4 px-1">
+                    <ul>
+                        <li><a href="{{ url_for('subclass') }}?clss=닭다리살">닭다리살</a></li>
+                        <li><a href="{{ url_for('subclass') }}?clss=닭가슴살">닭가슴살</a></li>
+                        <li><a href="{{ url_for('subclass') }}?clss=닭발">닭발</a></li>
+                    </ul>
+                </div>
+                <div class="mega-menu-column col-4 px-1">                
+                    <ul>
+                        <li><a href="{{ url_for('subclass') }}?clss=계란">계란</a></li>
+                        <li><a href="{{ url_for('subclass') }}?clss=우육전각">우육전각</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 수산 메뉴 콘텐츠 -->
+            <div id="menu-seafood" class="mega-menu-content">
+                  <div class="mega-menu-column col-3 px-2">
+                     <ul>
+                         <li><a href="{{ url_for('subclass') }}?clss=고등어">고등어</a></li>
+                         <li><a href="{{ url_for('subclass') }}?clss=명태">명태</a></li>
+                         <li><a href="{{ url_for('subclass') }}?clss=조기">조기</a></li>
+                     </ul>
+                 </div>
+                  <div class="mega-menu-column col-3 px-2">
+                     <ul>
+                         <li><a href="{{ url_for('subclass') }}?clss=새우">새우</a></li>
+                         <li><a href="{{ url_for('subclass') }}?clss=오징어">오징어</a></li>
+                         <li><a href="{{ url_for('subclass') }}?clss=멸치">멸치</a></li>
+                         <li><a href="{{ url_for('subclass') }}?clss=낙지">낙지</a></li>
+                     </ul>
+                 </div>
+                  <div class="mega-menu-column col-3 px-2">
+                     <ul>
+                         <li><a href="{{ url_for('subclass') }}?clss=가리비">가리비</a></li>
+                         <li><a href="{{ url_for('subclass') }}?clss=골뱅이">골뱅이</a></li>
+                         <li><a href="{{ url_for('subclass') }}?clss=바지락">바지락</a></li>
+                         <li><a href="{{ url_for('subclass') }}?clss=홍합">홍합</a></li>
+                     </ul>
+                 </div>
+                  <div class="mega-menu-column col-3 px-2">
+                     <ul>
+                         <li><a href="{{ url_for('subclass') }}?clss=김">김</a></li>
+                         <li><a href="{{ url_for('subclass') }}?clss=미역">미역</a></li>
+                         <li><a href="{{ url_for('subclass') }}?clss=다시마">다시마</a></li>
+                         <li><a href="{{ url_for('subclass') }}?clss=날치알">날치알</a></li>
+                     </ul>
+                 </div>
+            </div>
+            
+            <!-- 조미료 메뉴 콘텐츠 -->
+            <div id="menu-condiments" class="mega-menu-content">
+                  <div class="mega-menu-column col-3 px-2">
+                     <ul>
+                         <li><a href="{{ url_for('subclass') }}?clss=간장">간장</a></li>
+                         <li><a href="{{ url_for('subclass') }}?clss=된장">된장</a></li>
+                         <li><a href="{{ url_for('subclass') }}?clss=고추장">고추장</a></li>
+                         <li><a href="{{ url_for('subclass') }}?clss=액젓">액젓</a></li>
+                     </ul>
+                 </div>
+                  <div class="mega-menu-column col-3 px-2">
+                     <ul>
+                         <li><a href="{{ url_for('subclass') }}?clss=소금">소금</a></li>
+                         <li><a href="{{ url_for('subclass') }}?clss=설탕">설탕</a></li>
+                         <li><a href="{{ url_for('subclass') }}?clss=고춧가루">고춧가루</a></li>
+                     </ul>
+                 </div>
+                  <div class="mega-menu-column col-3 px-2">
+                     <ul>
+                         <li><a href="{{ url_for('subclass') }}?clss=시럽">시럽</a></li>
+                         <li><a href="{{ url_for('subclass') }}?clss=꿀">꿀</a></li>
+                         <li><a href="{{ url_for('subclass') }}?clss=식초">식초</a></li>
+                         <li><a href="{{ url_for('subclass') }}?clss=맛술">맛술</a></li>
+                     </ul>
+                 </div>
+                  <div class="mega-menu-column col-3 px-2">
+                     <ul>
+                         <li><a href="{{ url_for('subclass') }}?clss=향신료">향신료</a></li>
+                         <li><a href="{{ url_for('subclass') }}?clss=미원">미원</a></li>
+                         <li><a href="{{ url_for('subclass') }}?clss=다시다">다시다</a></li>
+                     </ul>
+                 </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript로 메뉴 동작을 제어
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuTriggers = document.querySelectorAll('.menu-trigger');
+            const megaMenuWrapper = document.getElementById('mega-menu-wrapper');
+            const megaMenuContents = document.querySelectorAll('.mega-menu-content');
+            const headerContainer = document.querySelector('.header-container');
+
+            let closeMenuTimer; // 메뉴를 닫기 위한 타이머
+
+            menuTriggers.forEach(trigger => {
+                trigger.addEventListener('mouseenter', function () {
+                    clearTimeout(closeMenuTimer); // 메뉴를 닫으려는 타이머가 있다면 취소
+
+                    // 현재 마우스가 올라간 메뉴의 data-menu 값을 가져옴
+                    const menuId = this.getAttribute('data-menu');
+                    const targetMenu = document.getElementById(menuId);
+
+                    // 모든 메뉴 콘텐츠를 숨기고 active 클래스 제거
+                    megaMenuContents.forEach(content => {
+                        content.style.display = 'none';
+                        content.classList.remove('active');
+                    });
+                    
+                    // 해당 메뉴 콘텐츠만 보여줌
+                    if (targetMenu) {
+                        targetMenu.style.display = 'flex'; // 혹은 'block'
+                        targetMenu.classList.add('active');
+                    }
+
+                    // 메가 메뉴 전체를 보여줌
+                    megaMenuWrapper.style.display = 'block';
+                });
+            });
+
+            // 헤더 컨테이너 전체에서 마우스가 나갔을 때 메뉴를 닫음
+            headerContainer.addEventListener('mouseleave', function () {
+                 // 바로 닫지 않고 약간의 지연 시간을 줌 (마우스가 잠시 벗어났다가 다시 돌아올 경우를 대비)
+                closeMenuTimer = setTimeout(() => {
+                    megaMenuWrapper.style.display = 'none';
+                }, 200); // 0.2초 후에 닫힘
+            });
+
+            // 메가 메뉴 위에서는 닫기 타이머가 작동하지 않도록 설정
+            megaMenuWrapper.addEventListener('mouseenter', function() {
+                clearTimeout(closeMenuTimer);
+            });
+        });
+
+        function btnProductSearch()
+        {
+            let pname = document.getElementById("pname").value;
+            window.location.href = "{{ url_for('search') }}?pname="+pname;
+        }
+    </script>
+
+    <!-- 메인페이지 -->
+    <main class="container">

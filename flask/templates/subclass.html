@@ -1,0 +1,101 @@
+{% include 'include/head.html' %}
+
+    {% include 'include/nav.html' %}
+
+<!-- 네비바 소분류 클릭 시 -->
+        <div class="row mb-2 mt-3 g-1 justify-content-between">
+            <div class="my-5 fs-2 text-center">
+                {{clss}}
+            </div>
+            <div class="d-none d-md-block col-md-3">
+                <div class="position-sticky" style="top: 2rem;">
+                    <div class="p-4 mb-3 rounded" style="background-color: rgb(212, 238, 212);">
+                        <h4 class="fst-italic">카테고리</h4>
+                        
+                        {% set vegetables_list = [
+                            '양파', '마늘', '대파', '청양고추', '상추', '배추', '시금치', '깻잎', '당근', '감자',
+                            '고구마', '팽이버섯', '새송이버섯', '표고버섯', '두부', '곤약', '콩나물', '양배추',
+                            '오이', '호박', '쌀', '잡곡', '레몬', '사과'
+                        ] %}
+                        
+                        {% set seafood_list = [
+                            '고등어', '명태', '조기', '새우', '오징어', '멸치', '낙지', '가리비', '골뱅이', '바지락',
+                            '홍합', '김', '미역', '다시마', '날치알'
+                        ] %}
+                        
+                        {% set meats_list = [
+                            '삼겹살', '햄', '닭다리살', '닭가슴살', '닭발', '계란','우육전각'
+                        ] %}
+                        
+                        {% set condiments_list = [
+                            '간장', '된장', '고추장', '소금', '설탕', '고춧가루', '맛술', '시럽', '꿀', '식초',
+                            '액젓', '향신료', '미원', '다시다'
+                        ] %}
+                        
+                            {# 2. 전달받은 clss 변수가 어떤 리스트에 속하는지 확인하고 해당 리스트만 출력합니다. #}
+                            {% if clss in vegetables_list %}
+                            <div class="all">
+                                <a href="javascript:return false;" class="color1">농산물</a>
+                            </div>
+                            <ul>
+                                {% set category_list = vegetables_list %}
+                            {% elif clss in seafood_list %}
+                            <div class="all">
+                                <a href="javascript:return false;" class="color1">수산물</a>
+                            </div>
+                            <ul>
+                                {% set category_list = seafood_list %}
+                            {% elif clss in meats_list %}
+                            <div class="all">
+                                <a href="javascript:return false;" class="color1">축산물</a>
+                            </div>
+                            <ul>
+                                {% set category_list = meats_list %}
+                            {% elif clss in condiments_list %}
+                            <div class="all">
+                                <a href="javascript:return false;" class="color1">조미료</a>
+                            </div>
+                            <ul>
+                                {% set category_list = condiments_list %}
+                            {% endif %}
+
+                            {# 3. 선택된 카테고리 리스트를 3개씩 끊어서 출력합니다. #}
+                            {% for item in category_list %}
+                                {% if loop.index0 % 3 == 0 %}
+                                    <li class="cate">
+                                {% endif %}
+                                
+                                <a href="{{ url_for('subclass') }}?clss={{ item }}">{{ item }}</a>
+                                
+                                {% if loop.index % 3 == 0 or loop.last %}
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>                 
+            </div>                 
+            <div class="row col-md-9 px-0">
+                {% for data in items %}
+                <div class="col-6 col-lg-4 mb-4">
+                    <a href="{{ url_for('detail') }}?code={{data.id}}" class="link-body-emphasis link-offset-2-hover link-underline-opacity-0">
+                        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-1 shadow-sm position-relative" style="height: calc(width * 1)">
+                            <img src="{{ url_for('static', filename='img/{}.jpg'.format(data.id)) }}" style="width:100%; height:100%">
+                        </div>
+                        <div class="text-body-secondary">
+                            {{data.name}}
+                        </div>
+                    </a>
+                    <div class="text-body-emphasis fs-5">
+                        {{data.price}}원
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+
+{% include 'include/footer.html' %}
+
+
+
